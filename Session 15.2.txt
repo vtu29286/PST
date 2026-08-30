@@ -1,0 +1,24 @@
+import java.util.*;
+
+class Solution {
+    public String[] sortPeople(String[] names, int[] heights) {
+        HashMap<Integer, String> map = new HashMap<>();
+        for (int i = 0; i < names.length; i++) {
+            map.put(heights[i], names[i]);
+        }
+        Integer[] sortedHeights = new Integer[heights.length];
+
+        for (int i = 0; i < heights.length; i++) {
+            sortedHeights[i] = heights[i];
+        }
+
+        Arrays.sort(sortedHeights, Collections.reverseOrder());
+        String[] result = new String[names.length];
+
+        for (int i = 0; i < sortedHeights.length; i++) {
+            result[i] = map.get(sortedHeights[i]);
+        }
+
+        return result;
+    }
+}

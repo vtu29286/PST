@@ -1,0 +1,49 @@
+class Solution {
+    public String dayOfTheWeek(int day, int month, int year) {
+
+        String[] week = {
+            "Sunday", "Monday", "Tuesday",
+            "Wednesday", "Thursday", "Friday", "Saturday"
+        };
+
+        int[] days = {
+            31, 28, 31, 30, 31, 30,
+            31, 31, 30, 31, 30, 31
+        };
+
+        int totalDays = 0;
+
+        // Days in previous years
+        for (int y = 1971; y < year; y++) {
+            if (isLeapYear(y)) {
+                totalDays += 366;
+            } else {
+                totalDays += 365;
+            }
+        }
+
+        // Days in previous months of the current year
+        for (int m = 1; m < month; m++) {
+            totalDays += days[m - 1];
+        }
+
+        // Add leap day if current year is leap year
+        // and the date is after February
+        if (month > 2 && isLeapYear(year)) {
+            totalDays++;
+        }
+
+        // Days before the given date
+        totalDays += day - 1;
+
+        // Jan 1, 1971 = Friday (index 5)
+        int index = (5 + totalDays) % 7;
+
+        return week[index];
+    }
+
+    private boolean isLeapYear(int year) {
+        return year % 400 == 0 ||
+               (year % 4 == 0 && year % 100 != 0);
+    }
+}
